@@ -1,13 +1,8 @@
-
-import Model from "@/components/ui/model";
+import Model from "@/components/ui/Modal";
 
 export default function SetupPage() {
-  return (
-    <div className="p-4">
-      <Model title="test" description="text">
-        <p>children</p>
-      </Model>
-      hi
-    </div>
-  );
+  return <div className="p-4">
+    Root Page
+  
+  </div>;
 }

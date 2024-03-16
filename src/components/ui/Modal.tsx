@@ -9,21 +9,21 @@ import {
   DialogTrigger,
 } from "./dialog";
 
-interface ModelProps {
+interface ModalProps {
   title: string;
   description: string;
   children?: React.ReactNode;
 }
 
-const Model = ({
+const Modal = ({
   description,
 
   title,
   children,
-}: ModelProps) => {
+}: ModalProps) => {
 
   return (
-    <Dialog >
+    <Dialog>
       <DialogTrigger asChild>
         <Button variant="outline">Open</Button>
       </DialogTrigger>
@@ -38,4 +38,4 @@ const Model = ({
   );
 };
 
-export default Model;
+export default Modal;
