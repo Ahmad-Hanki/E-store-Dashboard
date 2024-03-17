@@ -4,7 +4,7 @@
 import { StoreModal } from "@/components/modals/Store-modal";
 import { useEffect, useState } from "react";
 
-const ModelProvider = () => {
+const ModalProvider = () => {
   const [isMounted, setIsMounted] = useState(false);
   useEffect(() => {
     setIsMounted(true);
@@ -21,4 +21,4 @@ const ModelProvider = () => {
   );
 };
 
-export default ModelProvider;
+export default ModalProvider;

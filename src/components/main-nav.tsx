@@ -13,6 +13,16 @@ const MainNav = ({
 
   const routes = [
     {
+      href: `/${params.storeId}`,
+      label: "Overview",
+      active: pathname == `${params.storeId}`,
+    },
+    {
+      href: `/${params.storeId}/billboards`,
+      label: "Billboard",
+      active: pathname == `${params.storeId}/billboards`,
+    },
+    {
       href: `/${params.storeId}/settings`,
       label: "Settings",
       active: pathname == `${params.storeId}/settings`,
@@ -23,7 +33,16 @@ const MainNav = ({
     <nav className={cn("flex items-center space-x-4 lg:space-x-6", className)}>
       {routes.map((route, i) => {
         return (
-          <Link className={cn("text-sm font-medium space-x-4 lg:space-x-6 transition-colors hover:text-primary", route.active ? 'text-black dark:text-white' : 'text-muted-foreground')} href={route.href} key={i}>
+          <Link
+            className={cn(
+              "text-sm font-medium space-x-4 lg:space-x-6 transition-colors hover:text-primary",
+              route.active
+                ? "text-black dark:text-white"
+                : "text-muted-foreground"
+            )}
+            href={route.href}
+            key={i}
+          >
             {" "}
             {route.label}{" "}
           </Link>

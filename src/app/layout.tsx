@@ -1,33 +1,34 @@
-import { Inter } from "next/font/google";
-import "./globals.css";
-import { ClerkProvider } from "@clerk/nextjs";
-import ModelProvider from "@/providers/modelProvider";
-import { ToasterProvider } from "@/providers/toast-provider";
+import { ClerkProvider } from '@clerk/nextjs'
+import { Inter } from 'next/font/google'
 
-const inter = Inter({ subsets: ["latin"] });
+ 
+import { ToasterProvider } from '@/providers/toast-provider' 
+
+import './globals.css'
+import ModalProvider from '@/providers/modalProvider'
+
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata = {
-  title: "Admin Dashboard",
-  description: "Admin Dashboard",
-};
+  title: 'Dashboard',
+  description: 'E-Commerce Dashboard',
+}
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
-}: Readonly<{
-  children: React.ReactNode;
-}>) {
+}: {
+  children: React.ReactNode
+}) {
   return (
     <ClerkProvider>
       <html lang="en">
-        <body>
-          <main>
-            <ToasterProvider />
-            {<ModelProvider />}
+        <body className={inter.className}>
 
+            <ToasterProvider />
+            <ModalProvider />
             {children}
-          </main>
         </body>
       </html>
     </ClerkProvider>
-  );
+  )
 }
