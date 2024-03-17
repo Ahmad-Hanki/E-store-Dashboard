@@ -22,9 +22,10 @@ export default function RootLayout({
         <body>
           <main>
             <ToasterProvider />
-            <ModelProvider/>
+            {<ModelProvider />}
+
             {children}
-            </main>
+          </main>
         </body>
       </html>
     </ClerkProvider>

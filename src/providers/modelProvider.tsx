@@ -1,8 +1,7 @@
 "use client";
 
 
-
-import { StoreModel } from "@/components/modals/Store-modal";
+import { StoreModal } from "@/components/modals/Store-modal";
 import { useEffect, useState } from "react";
 
 const ModelProvider = () => {
@@ -17,7 +16,7 @@ const ModelProvider = () => {
 
   return (
     <>
-      <StoreModel />
+      <StoreModal />
     </>
   );
 };
