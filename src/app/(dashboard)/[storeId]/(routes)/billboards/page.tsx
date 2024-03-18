@@ -1,3 +1,5 @@
+import BillboardClient from "./components/BillboardClient";
+
 type Props = {};
 
 const BillboardsPage = ({}: Props) => {
