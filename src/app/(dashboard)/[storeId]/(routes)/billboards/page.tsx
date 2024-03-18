@@ -1,12 +1,32 @@
+import prisma from "@/db/client";
 import BillboardClient from "./components/BillboardClient";
+import { BillboardColumn } from "./components/columns";
 
-type Props = {};
+import { format } from "date-fns";
+type Props = {
+  params: { storeId: string };
+};
 
-const BillboardsPage = ({}: Props) => {
+const BillboardsPage = async ({ params: { storeId } }: Props) => {
+  const billboards = await prisma.billboard.findMany({
+    where: {
+      storeId,
+    },
+    orderBy: {
+      UpdatedAt: "desc",
+    },
+  });
+
+  const formattedBillboard: BillboardColumn[] = billboards.map((item) => ({
+    id: item.id,
+    label: item.label,
+    createdAt: format(item.CreatedAt, "MMMM do, yyyy"),
+  }));
+
   return (
     <div className="flex flex-col ">
       <div className="flex-1 space-y-4 p-8 pt-6">
-        <BillboardClient />
+        <BillboardClient data={formattedBillboard} />
       </div>
     </div>
   );

@@ -1,38 +1,44 @@
-import prisma from "@/db/client";
-import { auth } from "@clerk/nextjs";
-import { NextResponse } from "next/server";
+import { NextResponse } from 'next/server';
+import { auth } from '@clerk/nextjs';
 
+import prisma from '@/db/client';
+ 
 export async function POST(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
   try {
     const { userId } = auth();
+
     const body = await req.json();
 
     const { label, imageUrl } = body;
-    if (!label || !imageUrl) {
-      return NextResponse.json({ message: "no inputsss" }, { status: 400 });
+
+    if (!userId) {
+      return new NextResponse("Unauthenticated", { status: 403 });
     }
-    if (!userId)
-      return NextResponse.json({ message: "Unauthorized" }, { status: 401 });
+
+    if (!label) {
+      return new NextResponse("Label is required", { status: 400 });
+    }
+
+    if (!imageUrl) {
+      return new NextResponse("Image URL is required", { status: 400 });
+    }
 
     if (!params.storeId) {
-      return NextResponse.json(
-        { message: "storeId is required" },
-        { status: 401 }
-      );
+      return new NextResponse("Store id is required", { status: 400 });
     }
 
     const storeByUserId = await prisma.store.findFirst({
       where: {
         id: params.storeId,
         userId,
-      },
+      }
     });
 
     if (!storeByUserId) {
-      return NextResponse.json({ message: "Unauthorized" }, { status: 403 });
+      return new NextResponse("Unauthorized", { status: 405 });
     }
 
     const billboard = await prisma.billboard.create({
@@ -40,45 +46,34 @@ export async function POST(
         label,
         imageUrl,
         storeId: params.storeId,
-      },
+      }
     });
-    console.log(userId);
-    return NextResponse.json(
-      { message: "success bill board post" },
-      { status: 200 }
-    );
+  
+    return NextResponse.json(billboard);
   } catch (error) {
-    console.group("[[[[stores]]]]:::", error);
-    return NextResponse.json({ message: "error" }, { status: 500 });
+    console.log('[BILLBOARDS_POST]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
 
 export async function GET(
   req: Request,
   { params }: { params: { storeId: string } }
 ) {
   try {
-    const { userId } = auth();
-    
     if (!params.storeId) {
-      return NextResponse.json(
-        { message: "storeId is required" },
-        { status: 401 }
-      );
+      return new NextResponse("Store id is required", { status: 400 });
     }
 
     const billboards = await prisma.billboard.findMany({
       where: {
-        storeId: params.storeId,
-      },
+        storeId: params.storeId
+      }
     });
-    console.log(userId);
-    return NextResponse.json(
-      { message: "success bill board post" },
-      { status: 200 }
-    );
+  
+    return NextResponse.json(billboards);
   } catch (error) {
-    console.log("[[[[stores]]]]:::", error);
-    return NextResponse.json({ message: "error" }, { status: 500 });
+    console.log('[BILLBOARDS_GET]', error);
+    return new NextResponse("Internal error", { status: 500 });
   }
-}
+};
