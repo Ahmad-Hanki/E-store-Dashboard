@@ -13,7 +13,7 @@ const BillboardsPage = async ({ params: { storeId } }: Props) => {
       storeId,
     },
     orderBy: {
-      UpdatedAt: "desc",
+      CreatedAt: "desc",
     },
   });
 

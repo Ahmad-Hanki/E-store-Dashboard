@@ -16,7 +16,7 @@ const CategoriesPage = async ({ params: { storeId } }: Props) => {
       billboard: true
     },
     orderBy: {
-      updatedAt: "desc",
+      createdAt: "desc",
     },
   });
 
