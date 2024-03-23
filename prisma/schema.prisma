@@ -105,7 +105,7 @@ model Product {
   // general propirritys
   name       String
   price      Decimal
-  isFeauterd Boolean @default(false)
+  isFeatured Boolean @default(false)
   isArchived Boolean @default(false)
 
   // filter relations
@@ -115,7 +115,7 @@ model Product {
 
   colorId String
   color   Color   @relation(fields: [colorId], references: [id])
-  Images  Image[]
+  images  Image[]
 
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
