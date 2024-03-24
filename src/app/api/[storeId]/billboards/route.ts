@@ -46,6 +46,7 @@ export async function POST(
         label,
         imageUrl,
         storeId: params.storeId,
+
       }
     });
   
