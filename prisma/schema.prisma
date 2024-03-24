@@ -28,6 +28,7 @@ model Store {
   Sizes    Size[]    @relation("StoreToSize")
   Colors   Color[]   @relation("StoreToColor")
   Products Product[] @relation("StoreToProduct")
+  Orders   Order[]   @relation("StoreToOrder")
 }
 
 model Billboard {
@@ -104,7 +105,7 @@ model Product {
 
   // general propirritys
   name       String
-  price      Decimal 
+  price      Decimal
   isFeatured Boolean @default(false)
   isArchived Boolean @default(false)
 
@@ -117,8 +118,9 @@ model Product {
   color   Color   @relation(fields: [colorId], references: [id])
   images  Image[]
 
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
+  orderItems orderItem[]
 
   @@index([storeId])
   @@index([categoryId])
@@ -136,4 +138,30 @@ model Image {
   updatedAt DateTime @updatedAt
 
   @@index([productId])
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  storeId    String
+  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems orderItem[]
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  adress     String      @default("")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([storeId])
+}
+
+model orderItem {
+  id      String @id @default(uuid())
+  orderId String
+  Order   Order  @relation(fields: [orderId], references: [id])
+
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+
+  @@index([productId])
+  @@index([orderId])
 }
