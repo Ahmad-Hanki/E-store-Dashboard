@@ -129,7 +129,7 @@ const SettingsForm = ({ initialData }: SettingsFormProps) => {
         </form>
       </Form>
       <Separator />
-      <ApiAlert variant="public" title="NEXTJS" description={`${origin}/api/${params.storeId}`} />
+      <ApiAlert variant="public" title="Next_Public_Api_Url" description={`${origin}/api/${params.storeId}`} />
     </>
   );
 };
